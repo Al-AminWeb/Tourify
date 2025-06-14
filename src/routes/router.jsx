@@ -13,6 +13,7 @@ import SignUp from "../pages/SignUp.jsx";
 import About from "../pages/About.jsx";
 import AllPackages from "../pages/AllPackages.jsx";
 import NotFoundPage from "../pages/NotFoundPage.jsx";
+import AddPackages from "../pages/AddPackages.jsx";
 
 const router = createBrowserRouter([
     {
@@ -21,7 +22,6 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-
                 Component: Home,
             },
             {
@@ -31,16 +31,6 @@ const router = createBrowserRouter([
             {
                 path: 'all-packages',
                 Component: AllPackages,
-            },
-            {
-                path: 'coffee/:id',
-
-                Component: CoffeeDetails,
-            },
-            {
-                path: 'updateCoffee/:id',
-
-                Component: UpdateCoffee,
             },
             {
                 path: 'signin',
@@ -54,6 +44,10 @@ const router = createBrowserRouter([
                 path: "*",
                 Component: NotFoundPage,
 
+            },
+            {
+                path:'add-packages',
+                Component: AddPackages,
             }
         ],
     },

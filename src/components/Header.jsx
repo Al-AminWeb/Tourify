@@ -41,7 +41,6 @@ const Header = () => {
             {user ? (
                 <>
                   <li><Link to='/my-added-coffees'>My Bookings</Link></li>
-                  <li><Link to='/my-orders'>My Orders</Link></li>
                   <div className='relative'>
                     <button onClick={toggleDropdown} className='flex items-center gap-2 btn btn-ghost'>
                       {user?.photoURL && (
@@ -56,8 +55,8 @@ const Header = () => {
                     {dropdownOpen && (
                         <div className='absolute right-0 mt-2 w-48 bg-white border rounded shadow-md z-10'>
                           <ul className='menu p-2'>
-                            <li><Link to='/addCoffee' className='flex items-center gap-2'><Plus size={16} />Add Package</Link></li>
-                            <li><Link to='/my-added-coffees' className='flex items-center gap-2'><Settings size={16} />Manage My Packages</Link></li>
+                            <li><Link to='/add-packages' className='flex items-center gap-2'><Plus size={16} />Add Package</Link></li>
+                            <li><Link to='/manage-packages' className='flex items-center gap-2'><Settings size={16} />Manage My Packages</Link></li>
                             <li><button onClick={logOut} className='flex items-center gap-2 text-red-500'><LogOut size={16} />Logout</button></li>
                           </ul>
                         </div>

@@ -5,13 +5,13 @@ import Home from "../pages/Home.jsx";
 
 const MainLayout = () => {
     return (
-        <divc>
+        <div>
             <Header/>
             <div className=''>
                 <Outlet></Outlet>
             </div>
             <Footer></Footer>
-        </divc>
+        </div>
     )
 }
 

@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  console.log(loading, user)
+  // console.log(loading, user)
 
   const createUser = (email, password) => {
     setLoading(true)
@@ -54,7 +54,7 @@ const AuthProvider = ({ children }) => {
     setLoading,
     updateUser,
   }
-  return <AuthContext value={authData}>{children}</AuthContext>
+  return <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>
 }
 
 export default AuthProvider
