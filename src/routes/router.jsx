@@ -6,7 +6,7 @@ import {
 import MainLayout from "../layouts/MainLayout.jsx";
 import Home from "../pages/Home.jsx";
 import AddCoffee from "../components/AddCoffee.jsx";
-import CoffeeDetails from "../components/CoffeeDetails.jsx";
+import PackageDetails from "../components/PackageDetails.jsx";
 import UpdateCoffee from "../components/UpdateCoffee.jsx";
 import SignIn from "../pages/SignIn.jsx";
 import SignUp from "../pages/SignUp.jsx";
@@ -51,6 +51,11 @@ const router = createBrowserRouter([
             {
                 path:'add-packages',
                 Component: AddPackages,
+            },
+            {
+                path:'package/:id',
+                loader:({params})=>axios(`${import.meta.env.VITE_API_URL}/package/${params.id}`),
+                Component: PackageDetails,
             }
         ],
     },
