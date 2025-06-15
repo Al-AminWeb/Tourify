@@ -20,7 +20,7 @@ const Header = () => {
             </button>
             <ul className='menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52'>
               <li><Link to='/'>Home</Link></li>
-              <li><Link to='/all-coffees'>All Packages</Link></li>
+              <li><Link to='/all-packages'>All Packages</Link></li>
               <li><Link to='/about'>About</Link></li>
               {user && (
                   <>
@@ -36,11 +36,11 @@ const Header = () => {
         <div className='navbar-end hidden lg:flex'>
           <ul className='menu menu-horizontal px-1 items-center gap-2'>
             <li><Link to='/'>Home</Link></li>
-            <li><Link to='/all-coffees'>All Packages</Link></li>
+            <li><Link to='/all-packages'>All Packages</Link></li>
             <li><Link to='/about'>About</Link></li>
             {user ? (
                 <>
-                  <li><Link to='/my-added-coffees'>My Bookings</Link></li>
+                  <li><Link to='/my-bookings'>My Bookings</Link></li>
                   <div className='relative'>
                     <button onClick={toggleDropdown} className='flex items-center gap-2 btn btn-ghost'>
                       {user?.photoURL && (

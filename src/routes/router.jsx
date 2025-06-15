@@ -15,6 +15,8 @@ import AllPackages from "../pages/AllPackages.jsx";
 import NotFoundPage from "../pages/NotFoundPage.jsx";
 import AddPackages from "../pages/AddPackages.jsx";
 import axios from "axios";
+import ManageMyPackages from "../pages/ManageMyPackages.jsx";
+import MyBookings from "../pages/MyBookings.jsx";
 
 const router = createBrowserRouter([
     {
@@ -33,6 +35,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'all-packages',
+                loader:()=>axios(`${import.meta.env.VITE_API_URL}/packages`),
                 Component: AllPackages,
             },
             {
@@ -56,6 +59,15 @@ const router = createBrowserRouter([
                 path:'package/:id',
                 loader:({params})=>axios(`${import.meta.env.VITE_API_URL}/package/${params.id}`),
                 Component: PackageDetails,
+            },
+            {
+                path:'manage-packages',
+                Component:ManageMyPackages
+            },
+            {
+                path:'my-bookings',
+                loader:()=>axios(`${import.meta.env.VITE_API_URL}/packages`),
+                Component:MyBookings
             }
         ],
     },
