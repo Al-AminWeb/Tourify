@@ -14,6 +14,7 @@ import About from "../pages/About.jsx";
 import AllPackages from "../pages/AllPackages.jsx";
 import NotFoundPage from "../pages/NotFoundPage.jsx";
 import AddPackages from "../pages/AddPackages.jsx";
+import axios from "axios";
 
 const router = createBrowserRouter([
     {
@@ -22,7 +23,9 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
+                loader:()=>axios(`${import.meta.env.VITE_API_URL}/packages`),
                 Component: Home,
+
             },
             {
                path: "/about",

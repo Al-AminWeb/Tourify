@@ -24,8 +24,8 @@ const Header = () => {
               <li><Link to='/about'>About</Link></li>
               {user && (
                   <>
-                    <li><Link to='/my-added-coffees'>My Bookings</Link></li>
-                    <li><Link to='/my-orders'>My Orders</Link></li>
+                    <li><Link to='/'>Manage My Packages</Link></li>
+                    <li><Link to='/add-packages'>Add Package</Link></li>
                   </>
               )}
             </ul>
