@@ -1,20 +1,24 @@
-import { use } from 'react'
-import { AuthContext } from './AuthProvider'
-import { Navigate, useLocation } from 'react-router'
+import { use } from 'react';
+import { Navigate, useLocation } from 'react-router';
+import { AuthContext } from '../contexts/AuthContext';
 
 const PrivateRoute = ({ children }) => {
-  const { user, loading } = use(AuthContext)
-
-  const location = useLocation()
+  const { user, loading } = use(AuthContext);
+  const location = useLocation();
 
   if (loading) {
-    return <p>Loading...</p>
+    return (
+        <div className="flex justify-center items-center h-screen">
+          <span className="loading loading-spinner text-primary loading-lg"></span>
+        </div>
+    );
   }
 
   if (user && user?.email) {
-    return children
+    return children;
   }
-  return <Navigate state={location.pathname} to='/auth/login'></Navigate>
-}
 
-export default PrivateRoute
+  return <Navigate state={location.pathname} to="/signin" />;
+};
+
+export default PrivateRoute;

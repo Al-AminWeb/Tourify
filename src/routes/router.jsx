@@ -17,6 +17,7 @@ import AddPackages from "../pages/AddPackages.jsx";
 import axios from "axios";
 import ManageMyPackages from "../pages/ManageMyPackages.jsx";
 import MyBookings from "../pages/MyBookings.jsx";
+import PrivateRoute from "./PrivateRoute.jsx";
 
 const router = createBrowserRouter([
     {
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
                 Component: AllPackages,
             },
             {
-                path: 'signin',
+                path: '/signin',
                 Component: SignIn,
             },
             {
@@ -53,21 +54,29 @@ const router = createBrowserRouter([
             },
             {
                 path:'add-packages',
-                Component: AddPackages,
+                element:(<PrivateRoute>
+                    <AddPackages />
+                </PrivateRoute>),
             },
             {
                 path:'package/:id',
                 loader:({params})=>axios(`${import.meta.env.VITE_API_URL}/package/${params.id}`),
-                Component: PackageDetails,
+                element:(<PrivateRoute>
+                    <PackageDetails/>
+                </PrivateRoute>),
             },
             {
                 path:'manage-packages',
-                Component:ManageMyPackages
+                element:(<PrivateRoute>
+                   <ManageMyPackages />
+                </PrivateRoute>),
             },
             {
                 path:'my-bookings/:email',
                 loader:({params})=>axios(`${import.meta.env.VITE_API_URL}/my-bookings/${params.email}`),
-                Component:MyBookings
+                element:(<PrivateRoute>
+                    <MyBookings />
+                </PrivateRoute>),
             }
         ],
     },
