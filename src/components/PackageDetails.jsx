@@ -3,12 +3,14 @@ import { useLoaderData } from 'react-router';
 import axios from 'axios';
 import { AuthContext } from '../contexts/AuthContext.jsx';
 import { Calendar, Clock, Phone } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 const PackageDetails = () => {
   const { data: tourPackage } = useLoaderData();
   const { user } = useContext(AuthContext);
   const [note, setNote] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [localBookingCount, setLocalBookingCount] = useState(tourPackage.bookingCount || 0);
 
   const {
     _id,
@@ -22,38 +24,49 @@ const PackageDetails = () => {
     departure_date,
     destination,
     price,
-    bookingCount,
     package_details,
   } = tourPackage;
 
-    const handleBooking = async () => {
-      const bookingData = {
-        tour_package_id: _id,
-        tour_name,
-        price,
-        buyer_name: user?.displayName,
-        buyer_email: user?.email,
-        booking_date: new Date().toISOString(),
-        special_note: note,
-        status: 'pending',
-      };
-
-      try {
-        const res = await axios.post(`${import.meta.env.VITE_API_URL}/bookings`, bookingData);
-        if (res.data?.success || res.data?.insertedId) {
-          alert('Booking request submitted successfully!');
-          setNote('');
-          setIsModalOpen(false);
-        }
-      } catch (err) {
-        console.error('Booking error:', err);
-        alert('Something went wrong. Try again later.');
-      }
+  const handleBooking = async () => {
+    const bookingData = {
+      tour_package_id: _id,
+      tour_name,
+      price,
+      buyer_name: user?.displayName,
+      buyer_email: user?.email,
+      booking_date: new Date().toISOString(),
+      special_note: note,
+      status: 'pending',
     };
+
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/bookings`, bookingData);
+      if (res.data?.success || res.data?.insertedId) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Booking Confirmed!',
+          text: 'Your booking request has been submitted successfully.',
+          timer: 2000,
+          showConfirmButton: false
+        });
+        setLocalBookingCount(prev => prev + 1); // Update count locally
+        setNote('');
+        setIsModalOpen(false);
+      }
+    } catch (err) {
+      console.error('Booking error:', err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Booking Failed',
+        text: 'Something went wrong. Please try again later.',
+      });
+    }
+  };
+
   return (
       <div className="max-w-6xl mx-auto px-4 py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {/* Tour Image */}
+
           <img src={image} alt={tour_name} className="rounded-xl w-full h-80 object-cover" />
 
           {/* Tour Details */}
@@ -81,7 +94,7 @@ const PackageDetails = () => {
                 <Calendar className="w-4 h-4 text-primary" /> {departure_date} from {departure_location}
               </div>
               <div className="font-semibold">Destination: {destination}</div>
-              <div className="font-semibold">Booking Count: {bookingCount || 0}</div>
+              <div className="font-semibold">Booking Count: {localBookingCount}</div>
               <div className="text-xl font-bold text-primary mt-2">${price}</div>
             </div>
 

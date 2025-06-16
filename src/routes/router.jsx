@@ -65,8 +65,8 @@ const router = createBrowserRouter([
                 Component:ManageMyPackages
             },
             {
-                path:'my-bookings',
-                loader:()=>axios(`${import.meta.env.VITE_API_URL}/packages`),
+                path:'my-bookings/:email',
+                loader:({params})=>axios(`${import.meta.env.VITE_API_URL}/my-bookings/${params.email}`),
                 Component:MyBookings
             }
         ],

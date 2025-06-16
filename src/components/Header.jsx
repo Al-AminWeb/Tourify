@@ -40,7 +40,7 @@ const Header = () => {
             <li><Link to='/about'>About</Link></li>
             {user ? (
                 <>
-                  <li><Link to='/my-bookings'>My Bookings</Link></li>
+                  <li><Link to={`/my-bookings/${user?.email}`}>My Bookings</Link></li>
                   <div className='relative'>
                     <button onClick={toggleDropdown} className='flex items-center gap-2 btn btn-ghost'>
                       {user?.photoURL && (
