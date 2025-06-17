@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { AuthContext } from '../contexts/AuthContext'; // adjust path if needed
+import { AuthContext } from '../contexts/AuthContext';
 
 const ManageMyPackages = () => {
     const { user } = useContext(AuthContext);
@@ -19,7 +19,7 @@ const ManageMyPackages = () => {
             try {
                 setLoading(true);
                 const res = await axios.get(
-                    `${import.meta.env.VITE_API_URL}/my-packages/${user.email}`,
+                    `https://tourify-server.vercel.app/my-packages/${user.email}`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setPackages(res.data);
@@ -51,16 +51,15 @@ const ManageMyPackages = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
-
         try {
             const updatedPackage = {
                 ...editPackage,
-                price: parseInt(editPackage.price),
-                guide_contact_no: parseInt(editPackage.guide_contact_no),
+                price: parseInt(editPackage?.price),
+                guide_contact_no: parseInt(editPackage?.guide_contact_no),
             };
 
             const res = await axios.put(
-                `${import.meta.env.VITE_API_URL}/packages/${editPackage._id}`,
+                `https://tourify-server.vercel.app/packages/${editPackage._id}`,
                 updatedPackage,
                 {
                     headers: {
@@ -69,7 +68,9 @@ const ManageMyPackages = () => {
                 }
             );
 
-            if (res.data.success) {
+
+            if (res.data.acknowledged) {
+
                 Swal.fire('Success', 'Package updated successfully', 'success');
 
                 setPackages((prev) =>
@@ -81,6 +82,7 @@ const ManageMyPackages = () => {
             }
         } catch (err) {
             console.error(err);
+
             Swal.fire('Error', 'Failed to update package', 'error');
         }
     };
@@ -100,7 +102,7 @@ const ManageMyPackages = () => {
             const token = localStorage.getItem('token');
 
             axios
-                .delete(`${import.meta.env.VITE_API_URL}/package/${id}`, {
+                .delete(`https://tourify-server.vercel.app/package/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

@@ -21,7 +21,7 @@ const AllPackages = () => {
     const [packages, setPackages] = useState([]);
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/search-packages?q=${search}`)
+        fetch(`https://tourify-server.vercel.app/search-packages?q=${search}`)
             .then((res) => res.json())
             .then((data) => setPackages(data));
     }, [search]);

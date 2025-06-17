@@ -3,10 +3,9 @@ import { AuthContext } from '../contexts/AuthContext.jsx';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router';
 import { FaUser, FaEnvelope, FaLock, FaImage } from 'react-icons/fa';
+import axios from "axios";
 
-// --- For a better look, you can use an image from your project's public folder ---
-// Example: const backgroundImageUrl = '/images/signup-background.jpg';
-// For this example, we'll use a placeholder URL.
+
 const backgroundImageUrl = 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop';
 
 
@@ -20,7 +19,6 @@ const SignUp = () => {
     const formData = new FormData(form);
     const { email, password, name, photo } = Object.fromEntries(formData.entries());
 
-
     if (!name || !email || !password) {
       Swal.fire({
         icon: 'error',
@@ -32,10 +30,10 @@ const SignUp = () => {
 
     createUser(email, password)
         .then(result => {
-          console.log(result.user);
           updateUser({ displayName: name, photoURL: photo })
               .then(() => {
                 setUser({ ...result?.user, displayName: name, photoURL: photo });
+
                 Swal.fire({
                   icon: 'success',
                   title: 'Your Adventure Awaits!',
@@ -43,7 +41,31 @@ const SignUp = () => {
                   showConfirmButton: false,
                   timer: 2000,
                 });
-                navigate('/');
+
+
+                if (result?.user?.email) {
+
+                  axios.post(`https://tourify-server.vercel.app/jwt`, {
+                    email: result.user.email,
+                  })
+                      .then(res => {
+
+                        localStorage.setItem('token', res.data.token);
+
+
+                        navigate('/');
+                      })
+                      .catch(error => {
+                        console.error("JWT Error:", error.message);
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Token Error',
+                          text: 'Something went wrong while generating your token. Please try again.',
+                          background: '#1a202c',
+                          color: '#e2e8f0',
+                        });
+                      });
+                }
               })
               .catch(error => {
                 console.log(error);
@@ -63,6 +85,8 @@ const SignUp = () => {
           });
         });
   };
+
+
 
   return (
       <div

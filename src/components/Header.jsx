@@ -35,24 +35,25 @@ const Header = () => {
         </div>
 
         {/* Center - Theme Toggle */}
-        <div className='navbar-center'>
-          <label className='swap swap-rotate'>
-            {/* Light Icon */}
-            <svg className='swap-on fill-current w-6 h-6' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
-              <path d='M5.64 17.657l-1.414 1.414 1.414-1.414zM4.222 12H1v0h3.222zm1.414-5.657L4.222 4.929l1.414 1.414zM12 1v3.222V1zm5.657 4.222l1.414-1.414-1.414 1.414zM23 12h-3.222H23zm-4.222 5.657l1.414 1.414-1.414-1.414zM12 23v-3.222V23zM7.05 7.05a7 7 0 1 1 9.9 9.9 7 7 0 0 1-9.9-9.9z' />
-            </svg>
 
-            {/* Dark Icon */}
-            <svg className='swap-off fill-current w-6 h-6' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
-              <path d='M21.64 13.41a9 9 0 0 1-11.05-11.05 9.001 9.001 0 1 0 11.05 11.05z' />
-            </svg>
-
-            <input type='checkbox' className='theme-controller hidden' value='dark' />
-          </label>
-        </div>
 
         {/* Right */}
         <div className='navbar-end hidden lg:flex'>
+          <div className='navbar-center'>
+            <label className='swap swap-rotate'>
+              {/* Light Icon */}
+              <svg className='swap-on fill-current w-6 h-6' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                <path d='M5.64 17.657l-1.414 1.414 1.414-1.414zM4.222 12H1v0h3.222zm1.414-5.657L4.222 4.929l1.414 1.414zM12 1v3.222V1zm5.657 4.222l1.414-1.414-1.414 1.414zM23 12h-3.222H23zm-4.222 5.657l1.414 1.414-1.414-1.414zM12 23v-3.222V23zM7.05 7.05a7 7 0 1 1 9.9 9.9 7 7 0 0 1-9.9-9.9z' />
+              </svg>
+
+              {/* Dark Icon */}
+              <svg className='swap-off fill-current w-6 h-6' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                <path d='M21.64 13.41a9 9 0 0 1-11.05-11.05 9.001 9.001 0 1 0 11.05 11.05z' />
+              </svg>
+
+              <input type='checkbox' className='theme-controller hidden' value='dark' />
+            </label>
+          </div>
           <ul className='menu menu-horizontal px-1 items-center gap-2'>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/all-packages'>All Packages</Link></li>

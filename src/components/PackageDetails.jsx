@@ -40,7 +40,7 @@ const PackageDetails = () => {
     };
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/bookings`, bookingData);
+      const res = await axios.post(`https://tourify-server.vercel.app/bookings`, bookingData);
       if (res.data?.success || res.data?.insertedId) {
         Swal.fire({
           icon: 'success',
@@ -49,7 +49,7 @@ const PackageDetails = () => {
           timer: 2000,
           showConfirmButton: false
         });
-        setLocalBookingCount(prev => prev + 1); // Update count locally
+        setLocalBookingCount(prev => prev + 1);
         setNote('');
         setIsModalOpen(false);
       }

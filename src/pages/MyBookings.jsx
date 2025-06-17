@@ -11,7 +11,7 @@ const MyBookings = () => {
 
     useEffect(() => {
         if (!user?.email) return;
-        axios.get(`${import.meta.env.VITE_API_URL}/my-bookings/${user.email}`, {
+        axios.get(`https://tourify-server.vercel.app/${user.email}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -25,7 +25,7 @@ const MyBookings = () => {
     }, []);
     const handleConfirm = async (id) => {
         try {
-            await axios.patch(`${import.meta.env.VITE_API_URL}/booking-status/${id}`, {
+            await axios.patch(`https://tourify-server.vercel.app/booking-status/${id}`, {
                 status: 'completed',
             });
 

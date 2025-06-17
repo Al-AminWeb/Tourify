@@ -5,9 +5,9 @@ import {
 
 import MainLayout from "../layouts/MainLayout.jsx";
 import Home from "../pages/Home.jsx";
-import AddCoffee from "../components/AddCoffee.jsx";
+
 import PackageDetails from "../components/PackageDetails.jsx";
-import UpdateCoffee from "../components/UpdateCoffee.jsx";
+
 import SignIn from "../pages/SignIn.jsx";
 import SignUp from "../pages/SignUp.jsx";
 import About from "../pages/About.jsx";
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                loader:()=>axios(`${import.meta.env.VITE_API_URL}/public-packages`),
+                loader:()=>axios(`https://tourify-server.vercel.app/public-packages`),
                 Component: Home,
 
             },
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'all-packages',
-                loader:()=>axios(`${import.meta.env.VITE_API_URL}/public-packages`),
+                loader:()=>axios(`https://tourify-server.vercel.app/public-packages`),
                 Component: AllPackages,
             },
             {
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'package/:id',
-                loader:({params})=>axios(`${import.meta.env.VITE_API_URL}/package/${params.id}`),
+                loader:({params})=>axios(`https://tourify-server.vercel.app/package/${params.id}`),
                 element:(<PrivateRoute>
                     <PackageDetails/>
                 </PrivateRoute>),
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
                 path:'my-bookings/:email',
                 loader: async ({ params }) => {
                     const token = localStorage.getItem('token');
-                    return axios.get(`${import.meta.env.VITE_API_URL}/my-bookings/${params.email}`, {
+                    return axios.get(`https://tourify-server.vercel.app/my-bookings/${params.email}`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         }

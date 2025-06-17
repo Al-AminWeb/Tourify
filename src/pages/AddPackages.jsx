@@ -30,16 +30,15 @@ const AddPackage = () => {
         const formData = new FormData(form);
         const newPackage = Object.fromEntries(formData.entries());
 
-        // Add guide info
+
         newPackage.guide_email = user?.email;
         newPackage.guide_name = user?.displayName;
         newPackage.guide_photo = user?.photoURL;
         newPackage.bookingCount = 0;
 
-        // JWT token
         const token = localStorage.getItem('token');
 
-        axios.post(`${import.meta.env.VITE_API_URL}/add-package`, newPackage, {
+        axios.post(`https://tourify-server.vercel.app/add-package`, newPackage, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

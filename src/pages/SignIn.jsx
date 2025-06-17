@@ -24,14 +24,14 @@ const SignIn = () => {
         .then((result) => {
           const user = result.user;
 
-          // 🔐 Request JWT token from your backend
-          axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {
+
+          axios.post(`https://tourify-server.vercel.app/jwt`, {
             email: user.email
           })
               .then(res => {
-                localStorage.setItem('token', res.data.token); // ✅ Store JWT
+                localStorage.setItem('token', res.data.token);
 
-                // ✅ Show success message after storing the token
+
                 Swal.fire({
                   icon: 'success',
                   title: 'Welcome Back, Explorer!',

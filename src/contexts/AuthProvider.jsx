@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  // console.log(loading, user)
+
 
   const createUser = (email, password) => {
     setLoading(true)
@@ -40,9 +40,9 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser)
 
       if (currentUser?.email) {
-        axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{
+        axios.post(`https://tourify-server.vercel.app/jwt`,{
           email:currentUser?.email,
-        }).then(res=>console.log(res.data))
+        }).then(res=>(res.data))
       }
 
       setLoading(false)
