@@ -27,8 +27,8 @@ const AirlineShowcase = () => {
     return (
         <section className="bg-base-200 py-12">
             <div className="text-center mb-10">
-                <h2 className="text-3xl font-bold text-neutral">Explore Top Airlines</h2>
-                <p className="text-gray-600 mt-2 max-w-xl mx-auto">
+                <h2 className="text-3xl font-bold ">Explore Top Airlines</h2>
+                <p className=" mt-2 max-w-xl mx-auto">
                     Discover airline partners available on <span
                     className="text-primary font-semibold">Tourify</span> for your next flight.
                 </p>
