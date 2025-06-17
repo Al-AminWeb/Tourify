@@ -8,7 +8,6 @@ import PackageCard from "../components/PackageCard.jsx";
 const Home = () => {
     const data = useLoaderData()
     const [packages, setPackages] = useState(data?.data || [])
-    console.log(packages);
   return (
     <div>
        <div className='w-full py-5'>
@@ -20,9 +19,9 @@ const Home = () => {
         <div>
             <AirlineShowcase/>
         </div>
-        <section className="py-12 px-4 lg:px-16 bg-gray-50">
+        <section className="py-12 px-4 lg:px-16 ">
             <div className="max-w-7xl mx-auto text-center mb-10">
-                <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-3">🌍 Featured Tour Packages</h2>
+                <h2 className="text-3xl md:text-4xl font-extrabold  mb-3">🌍 Featured Tour Packages</h2>
                 <p className="text-gray-500 text-sm md:text-base">Top selected trips for your next adventure</p>
             </div>
 

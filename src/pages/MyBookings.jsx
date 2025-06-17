@@ -1,12 +1,28 @@
 import { useLoaderData } from "react-router";
-import { useState } from "react";
+import {use, useEffect, useState} from "react";
 import axios from "axios";
+import {AuthContext} from "../contexts/AuthContext.jsx";
 
 const MyBookings = () => {
+    const{user}=use(AuthContext);
     const data = useLoaderData();
-    console.log(data.data);
+    const token = localStorage.getItem('token');
     const [bookings, setBookings] = useState(data.data || []);
 
+    useEffect(() => {
+        if (!user?.email) return;
+        axios.get(`${import.meta.env.VITE_API_URL}/my-bookings/${user.email}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+            .then(res => {
+                setBookings(res.data);
+            })
+            .catch(err => {
+                console.error('Unauthorized access or token invalid', err.response?.data);
+            });
+    }, []);
     const handleConfirm = async (id) => {
         try {
             await axios.patch(`${import.meta.env.VITE_API_URL}/booking-status/${id}`, {

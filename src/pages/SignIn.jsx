@@ -2,9 +2,9 @@ import { use, useState } from 'react';
 import { AuthContext } from '../contexts/AuthContext.jsx';
 import Swal from 'sweetalert2';
 import { Link, useLocation, useNavigate } from 'react-router';
+import axios from "axios";
 
 const SignIn = () => {
-
   const { signIn } = use(AuthContext);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,17 +22,39 @@ const SignIn = () => {
 
     signIn(email, password)
         .then((result) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Welcome Back, Explorer!',
-            text: 'Your next adventure awaits.',
-            background: '#1a202c', // Dark background for the modal
-            color: '#e2e8f0',      // Light text color
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-          });
-          navigate(from, { replace: true });
+          const user = result.user;
+
+          // 🔐 Request JWT token from your backend
+          axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {
+            email: user.email
+          })
+              .then(res => {
+                localStorage.setItem('token', res.data.token); // ✅ Store JWT
+
+                // ✅ Show success message after storing the token
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Welcome Back, Explorer!',
+                  text: 'Your next adventure awaits.',
+                  background: '#1a202c',
+                  color: '#e2e8f0',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  timerProgressBar: true,
+                });
+
+                navigate(from, { replace: true });
+              })
+              .catch(err => {
+                console.error("JWT Error:", err.message);
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Token Error',
+                  text: 'Something went wrong while signing you in. Please try again.',
+                  background: '#1a202c',
+                  color: '#e2e8f0',
+                });
+              });
         })
         .catch((err) => {
           const errorMessage = err.message.replace('Firebase: ', '').replace(/\(auth\/.*\)\.?/, '');
@@ -48,6 +70,7 @@ const SignIn = () => {
           setIsSubmitting(false);
         });
   };
+
 
   const handleGoogleSignIn = () => {
     Swal.fire({

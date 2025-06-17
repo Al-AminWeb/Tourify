@@ -1,78 +1,154 @@
-import React, { use } from 'react'
-import { AuthContext } from '../contexts/AuthContext.jsx'
-import Swal from 'sweetalert2'
-import { useNavigate } from 'react-router'
+import React, { useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext.jsx';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
+import { FaUser, FaEnvelope, FaLock, FaImage } from 'react-icons/fa';
+
+// --- For a better look, you can use an image from your project's public folder ---
+// Example: const backgroundImageUrl = '/images/signup-background.jpg';
+// For this example, we'll use a placeholder URL.
+const backgroundImageUrl = 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop';
+
 
 const SignUp = () => {
-  const { createUser, setUser, updateUser } = use(AuthContext)
-  const navigate = useNavigate()
+  const { createUser, setUser, updateUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSignUp = e => {
-    e.preventDefault()
-    const form = e.target
-    const formData = new FormData(form)
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const { email, password, name, photo } = Object.fromEntries(formData.entries());
 
-    const { email, password, name, photo } = Object.fromEntries(
-      formData.entries()
-    )
 
-    // create user in the firebase
-    createUser(email, password).then(result => {
-      console.log(result.user)
-      updateUser({ displayName: name, photoURL: photo })
-        .then(() => {
-          setUser({ ...result?.user, displayName: name, photoURL: photo })
-          Swal.fire({
-            icon: 'success',
-            title: 'Your account is created.',
-            showConfirmButton: false,
-            timer: 1500,
-          })
-          navigate('/')
+    if (!name || !email || !password) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please fill in all required fields!',
+      });
+      return;
+    }
+
+    createUser(email, password)
+        .then(result => {
+          console.log(result.user);
+          updateUser({ displayName: name, photoURL: photo })
+              .then(() => {
+                setUser({ ...result?.user, displayName: name, photoURL: photo });
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Your Adventure Awaits!',
+                  text: 'Account created successfully.',
+                  showConfirmButton: false,
+                  timer: 2000,
+                });
+                navigate('/');
+              })
+              .catch(error => {
+                console.log(error);
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Something went wrong',
+                  text: error.message,
+                });
+              });
         })
         .catch(error => {
-          console.log(error)
-        })
-    })
-  }
+          console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Authentication Failed',
+            text: error.message,
+          });
+        });
+  };
 
   return (
-    <div className='card bg-base-100 max-w-sm mx-auto shrink-0 shadow-2xl my-12'>
-      <div className='card-body'>
-        <h1 className='text-5xl font-bold'>Sign Up now!</h1>
-        <form onSubmit={handleSignUp} className='fieldset'>
-          <label className='label'>Name</label>
-          <input type='text' name='name' className='input' placeholder='Name' />
-
-          <label className='label'>photo</label>
-          <input
-            type='text'
-            name='photo'
-            className='input'
-            placeholder='Photo URL'
-          />
-          <label className='label'>Email</label>
-          <input
-            type='email'
-            name='email'
-            className='input'
-            placeholder='Email'
-          />
-          <label className='label'>Password</label>
-          <input
-            type='password'
-            name='password'
-            className='input'
-            placeholder='Password'
-          />
-          <div>
-            <a className='link link-hover'>Forgot password?</a>
+      <div
+          className='min-h-screen bg-cover bg-center flex items-center justify-center p-4'
+          style={{ backgroundImage: `url(${backgroundImageUrl})` }}
+      >
+        <div className='w-full max-w-md  bg-opacity-20 backdrop-blur-lg rounded-2xl shadow-2xl p-8'>
+          <div className='text-center text-primary mb-8'>
+            <h1 className='text-4xl font-bold tracking-tight'>Join The Journey</h1>
+            <p className='text-lg text-neutral mt-2'>Create an account to discover amazing tours.</p>
           </div>
-          <button className='btn btn-neutral mt-4'>Sign up</button>
-        </form>
-      </div>
-    </div>
-  )
-}
+          <form onSubmit={handleSignUp} className='space-y-6'>
+            {/* Name Field */}
+            <div className='relative'>
+              <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+                <FaUser className='text-gray-300' />
+              </div>
+              <input
+                  type='text'
+                  name='name'
+                  className='input input-bordered w-full pl-10 bg-gray-700 bg-opacity-50 text-white placeholder-gray-300 focus:border-cyan-400 focus:ring focus:ring-cyan-300 focus:ring-opacity-50'
+                  placeholder='Your Name'
+                  required
+              />
+            </div>
 
-export default SignUp
+            {/* Photo URL Field */}
+            <div className='relative'>
+              <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+                <FaImage className='text-gray-300' />
+              </div>
+              <input
+                  type='text'
+                  name='photo'
+                  className='input input-bordered w-full pl-10 bg-gray-700 bg-opacity-50 text-white placeholder-gray-300 focus:border-cyan-400 focus:ring focus:ring-cyan-300 focus:ring-opacity-50'
+                  placeholder='Photo URL (optional)'
+              />
+            </div>
+
+            {/* Email Field */}
+            <div className='relative'>
+              <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+                <FaEnvelope className='text-gray-300' />
+              </div>
+              <input
+                  type='email'
+                  name='email'
+                  className='input input-bordered w-full pl-10 bg-gray-700 bg-opacity-50 text-white placeholder-gray-300 focus:border-cyan-400 focus:ring focus:ring-cyan-300 focus:ring-opacity-50'
+                  placeholder='Your Email'
+                  required
+              />
+            </div>
+
+            {/* Password Field */}
+            <div className='relative'>
+              <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+                <FaLock className='text-gray-300' />
+              </div>
+              <input
+                  type='password'
+                  name='password'
+                  className='input input-bordered w-full pl-10 bg-gray-700 bg-opacity-50 text-white placeholder-gray-300 focus:border-cyan-400 focus:ring focus:ring-cyan-300 focus:ring-opacity-50'
+                  placeholder='Password'
+                  required
+              />
+            </div>
+
+            <div className='flex items-center justify-between text-sm'>
+              <a href='#' className='link link-hover text-cyan-300 hover:text-cyan-200'>
+                Forgot password?
+              </a>
+            </div>
+
+            <button type='submit' className='btn bg-cyan-500 hover:bg-cyan-600 border-none text-white w-full text-lg'>
+              Create Account
+            </button>
+          </form>
+          <p className='text-center text-sm text-gray-200 mt-6'>
+            Already have an account?{' '}
+            <a href='/login' className='font-bold text-cyan-300 hover:underline'>
+              Log In
+            </a>
+          </p>
+        </div>
+      </div>
+  );
+};
+
+export default SignUp;

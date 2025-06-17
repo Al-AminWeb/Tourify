@@ -4,22 +4,24 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../contexts/AuthContext'; // adjust path if needed
 
 const ManageMyPackages = () => {
-    const { user } = useContext(AuthContext); // assuming user object has email
+    const { user } = useContext(AuthContext);
     const [packages, setPackages] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    // For edit modal state
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editPackage, setEditPackage] = useState(null);
 
     useEffect(() => {
         if (!user?.email) return;
 
-        // Fetch packages by guide email
+        const token = localStorage.getItem('token');
+
         const fetchPackages = async () => {
             try {
                 setLoading(true);
-                const res = await axios.get(`${import.meta.env.VITE_API_URL}/packages?guide_email=${user.email}`);
+                const res = await axios.get(
+                    `${import.meta.env.VITE_API_URL}/my-packages/${user.email}`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
                 setPackages(res.data);
             } catch (err) {
                 console.error(err);
@@ -31,27 +33,25 @@ const ManageMyPackages = () => {
         fetchPackages();
     }, [user?.email]);
 
-    // Open edit modal with selected package data
     const handleEditClick = (pkg) => {
         setEditPackage(pkg);
         setIsModalOpen(true);
     };
 
-    // Close modal
     const closeModal = () => {
         setIsModalOpen(false);
         setEditPackage(null);
     };
 
-    // Handle form input change
     const handleChange = (e) => {
         const { name, value } = e.target;
         setEditPackage((prev) => ({ ...prev, [name]: value }));
     };
 
-    // Submit updated package to backend
     const handleUpdate = async (e) => {
         e.preventDefault();
+        const token = localStorage.getItem('token');
+
         try {
             const updatedPackage = {
                 ...editPackage,
@@ -61,12 +61,17 @@ const ManageMyPackages = () => {
 
             const res = await axios.put(
                 `${import.meta.env.VITE_API_URL}/packages/${editPackage._id}`,
-                updatedPackage
+                updatedPackage,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             );
 
             if (res.data.success) {
                 Swal.fire('Success', 'Package updated successfully', 'success');
-                // Update packages state locally to reflect changes without refetching
+
                 setPackages((prev) =>
                     prev.map((pkg) => (pkg._id === editPackage._id ? updatedPackage : pkg))
                 );
@@ -80,7 +85,6 @@ const ManageMyPackages = () => {
         }
     };
 
-    // Delete package with confirmation
     const handleDelete = async (id) => {
         const confirm = await Swal.fire({
             title: 'Are you sure?',
@@ -89,34 +93,40 @@ const ManageMyPackages = () => {
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes, delete it!',
         });
 
         if (confirm.isConfirmed) {
-            axios.delete(`${import.meta.env.VITE_API_URL}/package/${id}`)
-                .then(res => {
+            const token = localStorage.getItem('token');
+
+            axios
+                .delete(`${import.meta.env.VITE_API_URL}/package/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((res) => {
                     if (res.data.deletedCount > 0) {
                         Swal.fire({
                             icon: 'success',
                             title: 'Deleted!',
                             text: 'Package deleted successfully',
                             timer: 2000,
-                            showConfirmButton: false
+                            showConfirmButton: false,
                         });
-                        setPackages(prev => prev.filter(p => p._id !== id));
+                        setPackages((prev) => prev.filter((p) => p._id !== id));
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Failed!',
                             text: 'Could not delete the package',
                             timer: 2000,
-                            showConfirmButton: false
+                            showConfirmButton: false,
                         });
                     }
                 });
         }
     };
-
 
     if (loading) return <p className="text-center mt-10">Loading your packages...</p>;
 

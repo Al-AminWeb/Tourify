@@ -9,6 +9,7 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth'
+import axios from "axios";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -37,6 +38,13 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser)
+
+      if (currentUser?.email) {
+        axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{
+          email:currentUser?.email,
+        }).then(res=>console.log(res.data))
+      }
+
       setLoading(false)
     })
     return () => {

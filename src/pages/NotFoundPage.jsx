@@ -1,37 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-
-
 const NotFoundPage = () => {
     return (
-
         <div className="bg-custom">
-
-            <div className="hero min-h-screen bg-black/30">
+            <div className="hero min-h-screen ">
                 <div className="hero-content text-center">
-
-
-                    <div className="card w-full max-w-lg bg-base-100/90 shadow-2xl backdrop-blur-sm">
+                    <div className="card w-full max-w-lg  shadow-2xl backdrop-blur-sm">
                         <div className="card-body items-center text-center p-8 md:p-12">
 
-                            {/* Icon */}
-                            <div className="text-primary mb-4">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-20 w-20"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth={2}
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                                    />
-                                </svg>
-                            </div>
+                            {/* Animated Image/GIF */}
+                            <img
+                                src="https://i.gifer.com/7VE.gif"
+                                alt="Lost in the Himalayas"
+                                className="w-48 h-48 object-cover mb-4 rounded-lg shadow"
+                            />
 
                             {/* Error Code */}
                             <h1 className="text-8xl md:text-9xl font-black text-secondary tracking-tight">
@@ -39,16 +22,16 @@ const NotFoundPage = () => {
                             </h1>
 
                             {/* Main Message */}
-                            <h2 className="card-title text-3xl font-bold mt-4">
-                                Oops! This trail went cold.
+                            <h2 className="card-title text-primary text-2xl md:text-3xl font-bold mt-4">
+                                Oops! You seem lost in the Himalayas.
                             </h2>
 
                             {/* Helper Text */}
-                            <p className="py-6">
-                                The page you were looking for doesn't exist. Maybe it was moved, or you mistyped the address. Let's get you back to a familiar path.
+                            <p className="py-6 text-sm text-base-content/80">
+                                The page you’re looking for doesn’t exist. Maybe you took a wrong turn or the path was removed.
                             </p>
 
-                            {/* Action Button using React Router's Link */}
+                            {/* Action Button */}
                             <div className="card-actions">
                                 <Link to="/" className="btn btn-primary btn-wide group">
                                     <svg

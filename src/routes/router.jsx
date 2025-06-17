@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                loader:()=>axios(`${import.meta.env.VITE_API_URL}/packages`),
+                loader:()=>axios(`${import.meta.env.VITE_API_URL}/public-packages`),
                 Component: Home,
 
             },
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'all-packages',
-                loader:()=>axios(`${import.meta.env.VITE_API_URL}/packages`),
+                loader:()=>axios(`${import.meta.env.VITE_API_URL}/public-packages`),
                 Component: AllPackages,
             },
             {
@@ -73,7 +73,14 @@ const router = createBrowserRouter([
             },
             {
                 path:'my-bookings/:email',
-                loader:({params})=>axios(`${import.meta.env.VITE_API_URL}/my-bookings/${params.email}`),
+                loader: async ({ params }) => {
+                    const token = localStorage.getItem('token');
+                    return axios.get(`${import.meta.env.VITE_API_URL}/my-bookings/${params.email}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    });
+                },
                 element:(<PrivateRoute>
                     <MyBookings />
                 </PrivateRoute>),
