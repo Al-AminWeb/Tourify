@@ -10,7 +10,7 @@ const Header = () => {
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   return (
-      <div className='navbar shadow-md sticky top-0 z-50 px-4 md:px-8 bg-base-100'>
+      <div className='navbar sticky top-0 z-50 px-4 md:px-8 bg-blue-300'>
         {/* Left */}
         <div className='navbar-start'>
           <div className='dropdown'>

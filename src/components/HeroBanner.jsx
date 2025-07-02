@@ -1,18 +1,21 @@
-import React from 'react'
-import { Link } from 'react-router'
+import React from 'react';
+import { Link } from 'react-router';
 
 const HeroBanner = () => {
     return (
         <div
-            className="hero min-h-[80vh]"
+            className="hero min-h-[60vh] max-h-[70vh] relative"
             style={{
                 backgroundImage: `url(https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1470&q=80)`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
             }}
         >
-            <div className="hero-overlay  bg-opacity-50"></div>
-            <div className="hero-content text-center text-neutral-content">
+            {/* Dark overlay */}
+            <div className="absolute inset-0  bg-opacity-50"></div>
+
+            {/* Content */}
+            <div className="hero-content text-center text-neutral-content z-10">
                 <div className="max-w-xl">
                     <h1 className="mb-5 text-4xl md:text-5xl font-bold text-white">
                         Discover Stunning Island Adventures
@@ -28,7 +31,7 @@ const HeroBanner = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default HeroBanner
+export default HeroBanner;

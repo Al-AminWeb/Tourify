@@ -19,7 +19,7 @@ const fadeUp = {
 
 const AboutUs = () => {
     return (
-        <div className="bg-base-100 text-base-content overflow-hidden">
+        <div className="bg-blue-300 text-base-content overflow-hidden">
             {/* Hero Section */}
             <motion.section
                 className="relative bg-cover bg-center bg-no-repeat py-24 md:py-32"
@@ -84,7 +84,7 @@ const AboutUs = () => {
             </section>
 
             {/* Why Choose Us */}
-            <section className="bg-base-200 py-16 md:py-24">
+            <section className=" py-16 md:py-24">
                 <div className="container mx-auto px-4 text-center">
                     <motion.div
                         initial="hidden"

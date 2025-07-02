@@ -11,7 +11,7 @@ const Home = () => {
     const [packages, setPackages] = useState(data?.data || []);
 
     return (
-        <div>
+        <div className='bg-blue-300'>
             <motion.div
                 className="w-full py-5"
                 initial={{ opacity: 0, y: -50 }}
@@ -38,7 +38,7 @@ const Home = () => {
                 <AirlineShowcase />
             </motion.div>
 
-            <section className="py-12 px-4 lg:px-16">
+            <section className="py-8 px-4 lg:px-16">
                 <motion.div
                     className="max-w-7xl mx-auto text-center mb-10"
                     initial={{ opacity: 0, y: 30 }}
@@ -49,7 +49,7 @@ const Home = () => {
                     <p className="text-gray-500 text-sm md:text-base">Top selected trips for your next adventure</p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+                <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
                     {packages.slice(0, 6).map((tourPackage, index) => (
                         <motion.div
                             key={tourPackage._id}

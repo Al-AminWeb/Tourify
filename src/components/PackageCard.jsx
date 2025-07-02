@@ -16,16 +16,22 @@ const PackageCard = ({ tourPackage }) => {
   } = tourPackage;
 
   return (
-      <div className="card bg-white shadow-md border border-gray-200 hover:shadow-xl hover:-translate-y-1 transition-all rounded-xl">
+      <div className="card bg-white shadow-md border border-gray-200 hover:shadow-xl hover:-translate-y-1 transition-all rounded-xl flex flex-col h-full">
+        {/* Image Section */}
         <figure className="relative h-56">
-          <img src={image} alt={tour_name} className="w-full h-full object-cover rounded-t-xl" />
+          <img
+              src={image}
+              alt={tour_name}
+              className="w-full h-full object-cover rounded-t-xl"
+          />
           <div className="absolute top-4 right-4 bg-green-600 text-white rounded-full px-4 py-1 text-sm font-semibold shadow-lg">
             ${price}
           </div>
         </figure>
 
-        <div className="card-body p-5">
-          {/* Guide */}
+        {/* Card Body */}
+        <div className="card-body p-5 flex flex-col flex-1">
+          {/* Guide Info */}
           <div className="flex items-center gap-3 mb-3">
             <div className="avatar">
               <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
@@ -42,9 +48,11 @@ const PackageCard = ({ tourPackage }) => {
           </div>
 
           {/* Title */}
-          <h2 className="text-xl font-semibold text-gray-800 h-14 overflow-hidden mb-3">{tour_name}</h2>
+          <h2 className="text-xl font-semibold text-gray-800 h-14 overflow-hidden mb-3">
+            {tour_name}
+          </h2>
 
-          {/* Info */}
+          {/* Info Rows */}
           <div className="space-y-2 text-gray-600 text-sm">
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-primary" />
@@ -56,10 +64,12 @@ const PackageCard = ({ tourPackage }) => {
             </div>
           </div>
 
-          {/* Button */}
-          <div className="mt-5">
+          {/* Button aligned to bottom */}
+          <div className="mt-auto pt-5">
             <Link to={`/package/${_id}`}>
-              <button className="btn btn-primary w-full rounded-md text-sm">View Details</button>
+              <button className="btn btn-primary w-full rounded-md text-sm">
+                View Details
+              </button>
             </Link>
           </div>
         </div>
