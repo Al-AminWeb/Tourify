@@ -5,6 +5,9 @@ import { NavLink, useLoaderData } from "react-router";
 import { useState } from "react";
 import PackageCard from "../components/PackageCard.jsx";
 import { motion } from "framer-motion";
+import PopularDestinations from "../components/PopularDestinations.jsx";
+import TravelBlog from "../components/TravelBlog.jsx";
+import Testimonial from "../components/Testomonial.jsx";
 
 const Home = () => {
     const data = useLoaderData();
@@ -73,6 +76,11 @@ const Home = () => {
                     </NavLink>
                 </motion.div>
             </section>
+
+        {/*    popular destination*/}
+            <PopularDestinations/>
+            <TravelBlog/>
+            <Testimonial/>
         </div>
     );
 };
