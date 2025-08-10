@@ -98,18 +98,18 @@ const AllPackages = () => {
             </motion.div>
 
             {/* Sorting controls */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 flex justify-between items-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 flex justify-between items-center ">
                 <h2 className="text-lg font-semibold text-gray-700">Showing {packages.length} Packages</h2>
                 <select
-                    className="select select-bordered max-w-xs"
+                    className="select select-bordered max-w-xs bg-blue-100 text-black font-bold"
                     value={sortOption}
                     onChange={(e) => setSortOption(e.target.value)}
                 >
-                    <option value="">Sort by</option>
-                    <option value="priceLowHigh">Price: Low to High</option>
-                    <option value="priceHighLow">Price: High to Low</option>
-                    <option value="dateNewest">Departure Date: Newest</option>
-                    <option value="dateOldest">Departure Date: Oldest</option>
+                    <option className='font-bold' value="">Sort by</option>
+                    <option className='font-bold'   value="priceLowHigh">Price: Low to High</option>
+                    <option className='font-bold' value="priceHighLow">Price: High to Low</option>
+                    <option className='font-bold' value="dateNewest">Departure Date: Newest</option>
+                    <option className='font-bold' value="dateOldest">Departure Date: Oldest</option>
                 </select>
             </div>
 
