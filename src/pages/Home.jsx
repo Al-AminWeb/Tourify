@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import PopularDestinations from "../components/PopularDestinations.jsx";
 import TravelBlog from "../components/TravelBlog.jsx";
 import Testimonial from "../components/Testomonial.jsx";
+import Newsletter from "../components/Newsletter.jsx";
 
 const Home = () => {
     const data = useLoaderData();
@@ -81,6 +82,15 @@ const Home = () => {
             <PopularDestinations/>
             <TravelBlog/>
             <Testimonial/>
+            
+            {/* Newsletter Section */}
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+            >
+                <Newsletter />
+            </motion.div>
         </div>
     );
 };
