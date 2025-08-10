@@ -46,7 +46,7 @@ const Newsletter = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await axios.post('http://localhost:3000/newsletter', formData);
+            const response = await axios.post('https://tourify-server.vercel.app/newsletter', formData);
             
             if (response.data.success) {
                 Swal.fire({

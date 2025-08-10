@@ -86,14 +86,14 @@ body {
 }
 
 body {
-    background: #000;
+    background: #fff;
     font-family:
             Helvetica Neue,
             Helvetica,
             Arial,
             sans-serif;
     font-size: 14px;
-    color: #fff;
+    color: #333;
     margin: 0;
     padding: 0;
 }
