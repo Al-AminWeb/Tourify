@@ -93,7 +93,7 @@
 
 ---
 
-
+👉 **Live Demo:** [Tourify](https://assignment-11-3ca80.web.app/)
 
 ---
 
@@ -118,7 +118,7 @@ cd client && npm install
 ## 📬 Contact
 
 > Made with 💙 by **Alamin Islam**
-> 📧 [alamin@example.com](mailto:mdalaminweb.1@gmail.com) 
+
 
 ---
 
