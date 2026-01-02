@@ -2,7 +2,7 @@
 
 *A Full-Stack Tour Package Booking Platform*
 
-🔗 **Live Preview:** [Visit Tourify](#)
+🔗 **Live Preview:** [Visit Tourify](https://assignment-11-3ca80.web.app/)
 
 
 ---
@@ -93,7 +93,7 @@
 
 ---
 
-👉 **Live Demo:** [Tourify](https://assignment-11-3ca80.web.app/)
+
 
 ---
 
